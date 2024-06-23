@@ -2,8 +2,8 @@ import { DataSource } from 'typeorm';
 import { Global, Module } from '@nestjs/common';
 import { User } from '../users/entities/user.entity';
 import { Product } from '../products/entities/product.entity';
-import {Category} from "../categories/entities/category.entity";
-import {Review} from "../reviews/entities/review.entity";
+import { Category } from '../categories/entities/category.entity';
+import { Review } from '../reviews/entities/review.entity';
 
 @Global()
 @Module({
