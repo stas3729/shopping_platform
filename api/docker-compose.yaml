@@ -1,0 +1,48 @@
+#connect to postrges db from terminal  inside a container
+#docker exec -it postgres-db psql -U postgres -d rozetka
+services:
+  nest-backend:
+    container_name: rozetka-nest-app
+    image: rozetka-nest-app
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - 7000:7000
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=030920071s
+      - DB_DATABASE=rozetka
+      - SESSION_SECRET=sessionseacvfndskmla;dslkfmd;sf
+    networks:
+      - backend-network
+    restart: unless-stopped
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - postgres
+
+  postgres:
+    container_name: postgres-db
+    image: postgres:16.3
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=030920071s
+      - POSTGRES_DB=rozetka
+    networks:
+      - backend-network
+    restart: unless-stopped
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+networks:
+  backend-network:
+    driver: bridge
+
+volumes:
+  postgres_data: {}

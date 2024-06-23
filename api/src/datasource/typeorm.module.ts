@@ -2,6 +2,8 @@ import { DataSource } from 'typeorm';
 import { Global, Module } from '@nestjs/common';
 import { User } from '../users/entities/user.entity';
 import { Product } from '../products/entities/product.entity';
+import {Category} from "../categories/entities/category.entity";
+import {Review} from "../reviews/entities/review.entity";
 
 @Global()
 @Module({
@@ -20,7 +22,7 @@ import { Product } from '../products/entities/product.entity';
             password: process.env.DB_PASSWORD,
             database: process.env.DB_DATABASE,
             synchronize: true,
-            entities: [User, Product],
+            entities: [User, Product, Category, Review],
             logging: true,
           });
           await dataSource.initialize();
